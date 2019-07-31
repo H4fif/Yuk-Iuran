@@ -1,0 +1,278 @@
+<?php  # Script 1 - header.html
+/* This script:
+ * - starts the HTML template.
+ * - indicates the encoding using header().
+ * - starts the session.
+ */
+
+ob_start();
+
+header('Content-Type: text/html; charset=UTF-8');  // Indicate the encoding:
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+if (in_array(session_status(), [0, 1])) {
+    session_start();  // Start the session.
+}
+?>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="shortcut icon" href="logo500x500.ico" type="image/x-icon" />
+  <!-- tambahan - bootstrap 3 -->
+
+  <!-- ONLINE CSS & JAVASCRIPT -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+    <!-- <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'> -->
+
+  <!-- OFFLINE CSS & JAVASCRIPT -->
+  
+  <!-- style buatan sendiri -->
+  <link rel="stylesheet"  href="style.css?t=<?php echo time(); ?>" />
+
+  <link rel="stylesheet" href="fontawesome-5.8.2/css/all.css" />
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/css/custom-navbar.css">
+  <script src="jquery/jquery-3.4.1.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin-top: 70px;
+    }
+
+    .container {
+      min-height: 100%;
+      position: relative;
+    }
+    
+    .konten-utama {
+      margin-left: 100px;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #b5f9fe;
+      color: #000;
+      padding: 15px;
+      width: 100%;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+
+    .header-logo {
+        height: 30px;
+        width: 35px;
+    }
+
+    .table-header {
+      text-align: center;
+      font-size: 1.3em;
+    }
+
+    .form-horizontal {
+      margin-top: 50px;
+    }
+
+    .form-login {
+      width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .form-regitrasi {
+      width: 60%;
+    }
+
+    #tbl-tarif-jasa th {
+      text-align: center;
+    }
+
+    ul.list-errors {
+      list-style-type: none;
+      margin-left: 0;
+    }
+
+    table.table-customer tr th, table.table-customer tr td {
+      vertical-align: middle;
+    }
+
+    .table-customer .glyphicon-pencil:hover {
+      color: #0a68ff;
+    }
+
+    .table-customer .glyphicon-trash:hover {
+      color: #f00;
+    }
+
+    .table-customer .glyphicon {
+      color: #000;
+    }
+
+    .kartu .fa, .kartu .fas {
+      font-size: 100px;
+    }
+
+    .kartu .fa, .kartu .fas {
+      color: #000;
+    }
+
+    .kartu .fa:hover, .kartu .fas:hover {
+      color: #777;
+    }
+
+    .kartu a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .kartu a:hover {
+      color: #777;
+    }
+
+  </style>
+  <title><?php echo $page_title; ?></title>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid fixed-top">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="index.php"><img alt="logo batan" src="logo500x500.jpg" class="header-logo" /></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <?php
+              $path = pathinfo($_SERVER['REQUEST_URI']);
+
+              if (isset($_SESSION['hak_akses'])) {
+                  if ($path['filename'] == 'index') {
+                      echo '<li class="active">';
+                  } else {
+                      echo '<li>';
+                  }
+          ?>
+          <a href="index.php"><span class="glyphicon glyphicon-home"></span> Beranda</a></li>
+
+          <?php
+                  if (($path['filename'] == 'data_ap') || ($path['filename'] == 'tambah_ap') || ($path['filename'] == 'ubah_ap') || ($path['filename'] == 'hapus_ap')) {
+                      echo '<li class="active">';
+                  } else {
+                      echo '<li>';
+                  }
+          ?>
+          <a href="data_ap.php"><span class="fas fa-clipboard-list"></span> Atribut Pembayaran</a></li>
+
+          <?php
+                if (in_array($_SESSION['hak_akses'], [1, 2])) {
+                      if (($path['filename'] == 'data_pay') || ($path['filename'] == 'tambah_pay') || ($path['filename'] == 'ubah_data_pay') || ($path['filename'] == 'hapus_data_pay') || ($path['filename'] == 'detail_data_pay')) {
+                          echo '<li class="active">';
+                      } else {
+                          echo '<li>';
+                      }
+          ?>
+          <a href="data_pay.php"><span class="fas fa-money-check-alt"></span> Pembayaran</a></li>
+
+          <?php
+                      if (($path['filename'] == 'data_pk') || ($path['filename'] == 'registrasi_penghuni') || ($path['filename'] == 'ubah_data_pk') || ($path['filename'] == 'hapus_data_pk') || ($path['filename'] == 'detail_data_pk')) {
+                          echo '<li class="active">';
+                      } else {
+                          echo '<li>';
+                      }
+          ?>
+          <a href="data_pk.php"><span class="fas fa-users"></span> Penyewa Kontrakan</a></li>
+          <?php
+                  }
+              }
+
+              if (!isset($_SESSION['kode_akun'])) {
+                  if ($path['filename'] == 'tentang') {
+                    echo '<li class="active">';
+                  } else {
+                      echo '<li>';
+                  }
+          ?>
+          <a href="tentang.php">Tentang Kami</a></li>
+          <?php } ?>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <?php
+              if (isset($_SESSION['kode_akun'])){
+                  if (($path['filename'] == 'profil') or ($path['filename'] == 'ubah_profil')){
+                      echo '<li class="active">';
+                  } else {
+                      echo '<li>';
+                  }
+
+                  if (in_array($_SESSION['hak_akses'], [1, 2])){
+                      $class = 'fas fa-user-shield';
+                  } else {
+                      $class = 'fas fa-user-alt';
+                  }
+
+                  if (isset($_SESSION['nama'])){
+                      $nama = $_SESSION['nama'];
+                  } else {
+                      $nama = 'Super Admin';
+                  }
+          ?>
+          <a href="profil.php" title="Menu Profil"><span class="<?=$class;?>"></span> <?=ucwords(strtolower($nama));?></a></li>
+          
+          <?php
+                  if ($path['filename'] == 'logout'){
+                      echo '<li class="active">';
+                  } else {
+                      echo '<li>';
+                  }
+          ?>
+            <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Keluar</a></li>
+            
+          <?php
+              } else {
+                  
+                  if ($path['filename'] == 'login'){
+                    echo '<li class="active">';
+                  } else {
+                      echo '<li>';
+                  }
+          ?>
+            <a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Masuk</a></li>
+          <?php } ?>
+        </ul>
+      </div>
+    </div>
+  </nav>
