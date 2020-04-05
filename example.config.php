@@ -7,10 +7,10 @@ define('MYSQLI', 'mysqli_connect.php');
 define('FUNGSI', 'includes/functions.php');
 
 // Persiapan koneksi database :
-define('DB_USER', 'epiz_23903826');
-define('DB_HOST', 'sql100.epizy.com');
-define('DB_PASS', 'QACZxnbgm');
-define('DB_NAME', 'epiz_23903826_yuk_iuran');
+define('DB_USER', '');
+define('DB_HOST', '127.0.0.1');
+define('DB_PASS', '');
+define('DB_NAME', '');
 
 // Pengaturan Halaman :
 define('MAKS_TAMPILAN', 50);

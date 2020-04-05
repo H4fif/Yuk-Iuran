@@ -9,7 +9,7 @@ define('FUNGSI', 'includes/functions.php');
 // Persiapan koneksi database :
 define('DB_USER', 'root');
 define('DB_HOST', '127.0.0.1');
-define('DB_PASS', '');
+define('DB_PASS', 'r');
 define('DB_NAME', 'yuk_iuran');
 
 // Pengaturan Halaman :

@@ -48,62 +48,67 @@ function showSqlError($dbc, $kode_kesalahan = null) {
 // Function untuk menampilkan form login.
 // Butuh 1 parameter, array input.
 function showLoginForm($val = []) {
-    echo '<form class="form-login form-horizontal" name="login" action="login.php" method="post">
-        <div class="page-header">
-          <h3 class="text-center" style="font-size:2em;">Masuk</h3>
-        </div>
+    try {
+        echo '<form class="form-login form-horizontal" name="login" action="login.php" method="post">
+            <div class="page-header">
+              <h3 class="text-center" style="font-size:2em;">Masuk</h3>
+            </div>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="form-group">
-              <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
-                <input class="form-control" name="email" type="email" placeholder="Email" size="30" maxlength="150" required="required" aria-describedby="sizing-addon1" value="' . ((isset($val['email'])) ? $val['email'] : '') . '" />
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <input class="form-control" name="email" type="email" placeholder="Email" size="30" maxlength="150" required="required" aria-describedby="sizing-addon1" value="' . ((isset($val['email'])) ? $val['email'] : '') . '" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="form-group">
-              <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-lock red"></i></span>
-                <input class="form-control pwd" name="kata_sandi" type="password" placeholder="Kata Sandi" size="20" minlength="4" maxlength="40" aria-describedby="sizing-addon2" required="required" value="' . ((isset($val['kata_sandi'])) ? $val['kata_sandi'] : '') . '" />
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-lock red"></i></span>
+                    <input class="form-control pwd" name="kata_sandi" type="password" placeholder="Kata Sandi" size="20" minlength="4" maxlength="40" aria-describedby="sizing-addon2" required="required" value="' . ((isset($val['kata_sandi'])) ? $val['kata_sandi'] : '') . '" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="form-group">
-              <div class="checkbox btn-lg">
-                <label><input type="checkbox" id="ckPwd" /><small> Tampilkan Kata Sandi</small></label>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="checkbox btn-lg">
+                    <label><input type="checkbox" id="ckPwd" /><small> Tampilkan Kata Sandi</small></label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="form-group">
-            <div class="col-sm-12">
-              <div class="button-group text-center">
-                <button class="btn btn-default btn-lg" type="submit">
-                  <span class="glyphicon glyphicon-log-in"></span> Masuk
-                </button>
+            <div class="row">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div class="button-group text-center">
+                    <button class="btn btn-default btn-lg" type="submit">
+                      <span class="glyphicon glyphicon-log-in"></span> Masuk
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <br><br>
-        <div class="row">
-          <div class="form-group">
-            <i>Lupa kata sandi? Hubungi Admin</i>
-          </div>
-        </div>
-      </form>';
+            <br><br>
+            <div class="row">
+              <div class="form-group">
+                <i>Lupa kata sandi? Hubungi Admin</i>
+              </div>
+            </div>
+          </form>';
+    } catch (Exception $e) {
+        var_dump($e);
+        throw $e;
+    }
 }  // Akhir showLoginForm($val) function.
 
 // Function untuk membuat form input alamat sticky.
